@@ -14,19 +14,18 @@ jobs:
       VM_NAME: Ubuntu-VM
       VM_IMAGE: UbuntuLTS
       VM_SIZE: Standard_DS2_v2
-      VM_USER: admin
-
+      VM_USER: borisdundakov
     steps:
       - name: 'Az CLI login'
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }} 
 
-      - name: Create resource group
-        run: |
-              az group create \
-                -l $LOCATION \
-                -n $RESOURCE_GROUP_NAME \
+      # - name: Create resource group
+      #   run: |
+      #         az group create \
+      #           -l $LOCATION \
+      #           -n $RESOURCE_GROUP_NAME \
 
       - name: Create virtual machine
         run: |
