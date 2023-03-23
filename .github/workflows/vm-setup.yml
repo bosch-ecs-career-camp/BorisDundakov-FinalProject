@@ -15,17 +15,18 @@ jobs:
       VM_IMAGE: UbuntuLTS
       VM_SIZE: Standard_DS2_v2
       VM_USER: borisdundakov
+      
     steps:
       - name: 'Az CLI login'
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }} 
 
-      # - name: Create resource group
-      #   run: |
-      #         az group create \
-      #           -l $LOCATION \
-      #           -n $RESOURCE_GROUP_NAME \
+      - name: Create resource group
+        run: |
+              az group create \
+                -l $LOCATION \
+                -n $RESOURCE_GROUP_NAME \
 
       - name: Create virtual machine
         run: |
@@ -36,3 +37,10 @@ jobs:
                 --generate-ssh-keys \
                 --admin-username $VM_USER \
                 --admin-password ${{ secrets.VM_PASS }}
+      
+      - name: Open port for Remote Desktop connection
+        run: |
+                az vm open-port \
+                --resource-group $RESOURCE_GROUP_NAME \
+                --name $VM_NAME \
+                --port 3389
