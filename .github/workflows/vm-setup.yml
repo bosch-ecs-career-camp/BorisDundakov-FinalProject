@@ -33,6 +33,6 @@ jobs:
                 -n $VM_NAME \
                 -g $RESOURCE_GROUP_NAME \
                 --image $VM_IMAGE \
-                --ssh-key-values ${{ secrets.SSH_KEY }} \
+                --generate-ssh-keys \
                 --admin-username $VM_USER \
                 --admin-password ${{ secrets.VM_PASS }}
