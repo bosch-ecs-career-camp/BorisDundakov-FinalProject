@@ -1,0 +1,39 @@
+name: Create Azure infrastructure
+on: workflow_dispatch
+
+permissions:
+      id-token: write
+      contents: read
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+
+      LOCATION: francecentral
+      RESOURCE_GROUP_NAME: BorisDundakov_RG_FinalProject
+      VM_NAME: Ubuntu-VM
+      VM_IMAGE: UbuntuLTS
+      VM_SIZE: Standard_DS2_v2
+      VM_USER: Boris Dundakov
+
+    steps:
+      - name: 'Az CLI login'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }} 
+
+      - name: Create resource group
+        run: |
+              az group create \
+                -l $LOCATION \
+                -n $RESOURCE_GROUP_NAME \
+
+      - name: Create virtual machine
+        run: |
+                az vm create \
+                -n $VM_NAME \
+                -g $RESOURCE_GROUP_NAME \
+                --image $VM_IMAGE \
+                --ssh-key-values {{ secrets.SSH_KEY }} \
+                --admin-username $VM_USER \
+                --admin-password {{ secrets.VM_PASS }}
