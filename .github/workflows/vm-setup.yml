@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
 
-      LOCATION: francecentral
+      LOCATION: northeurope
       RESOURCE_GROUP_NAME: BorisDundakov_RG_FinalProject
       VM_NAME: Ubuntu-VM
       VM_IMAGE: UbuntuLTS
       VM_SIZE: Standard_DS2_v2
-      VM_USER: BorisDundakov
+      VM_USER: admin
 
     steps:
       - name: 'Az CLI login'
