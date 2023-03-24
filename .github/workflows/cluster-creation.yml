@@ -2,7 +2,7 @@ name: Create AKS Cluster
 on: workflow_dispatch
 
 env:
-  PUBLIC_KEY: ${{ secrets.AZ_PUB_KEY }}
+  PUBLIC_KEY: ${{ secrets.AZURE_PUB_KEY }}
 
 
 jobs:
@@ -19,6 +19,8 @@ jobs:
 
       - name: Execute bash cluster-creation script
         run: |
+              pwd
+              ls -a
               chmod +x azure-scripts/cluster-creation.sh 
               ./azure-scripts/cluster-creation.sh PUBLIC_KEY
         
