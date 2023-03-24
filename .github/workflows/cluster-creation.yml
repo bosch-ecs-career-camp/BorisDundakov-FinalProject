@@ -6,7 +6,15 @@ jobs:
   create-aks:
     runs-on: ubuntu-22.04
     env:
+      LOCATION: francecentral
+      RESOURCE_GROUP_NAME: BorisDundakov_RG_FinalProject
+      VM_NAME: Ubuntu-VM
+      VM_IMAGE: UbuntuLTS
+      VM_SIZE: Standard_DS2_v2
+      VM_USER: borisdundakov
       PUBLIC_KEY: ${{ secrets.AZURE_PUB_KEY }}
+      AKS_NAME: VM_Cluster
+
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v3
@@ -17,12 +25,15 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }} 
 
       - name: Execute bash cluster-creation script
-        run: |
-              pwd
-              ls -a
-              chmod +x azure-scripts/cluster-creation.sh 
-              ./azure-scripts/cluster-creation.sh $PUBLIC_KEY
-        
-  # deploy-pods:
-  #   runs-on: ubuntu-22.04
-    
+        run: |              
+                az aks create \
+                  -g $RESOURCE_GROUP_NAME \
+                  -n $AKS_NAME \
+                  --ssh-key-value $PUBLIC_KEY \
+                  -l $LOCATION \
+                  --node-count 1 \
+                  --node-vm-size $VM_SIZE \
+                  --network-plugin azure \
+
+    # deploy-pods:
+            #runs-on: ubuntu-22.04
