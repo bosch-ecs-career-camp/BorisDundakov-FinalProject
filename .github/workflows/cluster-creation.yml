@@ -1,13 +1,12 @@
 name: Create AKS Cluster
 on: workflow_dispatch
 
-env:
-  PUBLIC_KEY: ${{ secrets.AZURE_PUB_KEY }}
-
-
 jobs:
+
   create-aks:
     runs-on: ubuntu-22.04
+    env:
+      PUBLIC_KEY: ${{ secrets.AZURE_PUB_KEY }}
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v3
@@ -22,7 +21,7 @@ jobs:
               pwd
               ls -a
               chmod +x azure-scripts/cluster-creation.sh 
-              ./azure-scripts/cluster-creation.sh PUBLIC_KEY
+              ./azure-scripts/cluster-creation.sh $PUBLIC_KEY
         
   # deploy-pods:
   #   runs-on: ubuntu-22.04
