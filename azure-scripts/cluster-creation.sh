@@ -3,7 +3,7 @@ export AKS_NAME=VM_Cluster
 export LOCATION=francecentral
 export VM_SIZE=Standard_DS2_v2
 
-SSH_KEY=$1
+export SSH_KEY=$1
 #SSH_KEY=take input
 
 
