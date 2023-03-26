@@ -1,11 +1,11 @@
-name: Create AKS Cluster
+name: AKS Cluster and Container Registry
 on: workflow_dispatch
 
 jobs:
-
   create-aks:
     runs-on: ubuntu-22.04
     env:
+    
       LOCATION: francecentral
       RESOURCE_GROUP_NAME: BorisDundakov_RG_FinalProject
       VM_NAME: Ubuntu-VM
@@ -14,6 +14,7 @@ jobs:
       VM_USER: borisdundakov
       PUBLIC_KEY: ${{ secrets.AZURE_PUB_KEY }}
       AKS_NAME: VM_Cluster
+      CONTAINER_REG_NAME: borisdundakovwebapp
 
     steps:
       - name: Checkout current repository
@@ -34,6 +35,13 @@ jobs:
                   --node-count 1 \
                   --node-vm-size $VM_SIZE \
                   --network-plugin azure \
+      
+      - name: Create container-registry
+        run: |
+                az acr create \
+                --resource-group $RESOURCE_GROUP_NAME \
+                --name $CONTAINER_REG_NAME \
+                --sku Basic
 
     # deploy-pods:
             #runs-on: ubuntu-22.04
