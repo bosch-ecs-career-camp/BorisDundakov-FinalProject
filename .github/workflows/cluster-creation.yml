@@ -43,5 +43,6 @@ jobs:
                 --name $CONTAINER_REG_NAME \
                 --sku Basic
 
-    # deploy-pods:
-            #runs-on: ubuntu-22.04
+    # - name: apply deployment
+    #    run: |
+    #            kubectl apply deployment/test-depl.yml  
