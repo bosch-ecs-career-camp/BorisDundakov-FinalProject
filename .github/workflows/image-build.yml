@@ -11,20 +11,20 @@ jobs:
 #      options: --user root
     env:
         RESOURCE_GROUP_NAME: BorisDundakov_RG_FinalProject
-        CONTAINER_REG_NAME: webapp
+        CONTAINER_REG_NAME: borisdundakovwebapp
         IMAGE_NAME: h2o-wave-app
 
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v3
       
-      # - name: Build docker image
-      #   run: |
-      #         sudo usermod -aG docker $USER
-      #         docker build  --build-arg PYTHON_VERSION=3.8 \
-      #         --build-arg WAVE_VERSION=0.25.2 \
-      #         --build-arg PYTHON_MODULE="wave-heroku/ai_app/app.py" \
-      #         -t $IMAGE_NAME ./wave-heroku       
+      - name: Build docker image
+        run: |
+              sudo usermod -aG docker $USER
+              docker build  --build-arg PYTHON_VERSION=3.8 \
+              --build-arg WAVE_VERSION=0.25.2 \
+              --build-arg PYTHON_MODULE="wave-heroku/ai_app/app.py" \
+              -t $IMAGE_NAME ./wave-heroku       
 
       #CLI Login workaround
       - name: Install Azure cli
