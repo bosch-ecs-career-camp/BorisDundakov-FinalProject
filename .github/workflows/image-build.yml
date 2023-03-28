@@ -6,8 +6,9 @@ on: workflow_dispatch
 jobs:
   build-image:
     runs-on: self-hosted
-#     container: 
-#      image: docker
+    container: 
+     image: docker
+     options: --user root
     env:
         RESOURCE_GROUP_NAME: BorisDundakov_RG_FinalProject
         CONTAINER_REG_NAME: webapp
