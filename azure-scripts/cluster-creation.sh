@@ -3,10 +3,7 @@ export AKS_NAME=VM_Cluster
 export LOCATION=francecentral
 export VM_SIZE=Standard_DS2_v2
 
-SSH_KEY=$1
-#SSH_KEY=take input
-
-
+SSH_KEY=~/.ssh/azure_rsa.pub
 #1. Create cluster
 
 az aks create \

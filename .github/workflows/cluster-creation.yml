@@ -1,13 +1,21 @@
-name: Create AKS Cluster
+name: AKS Cluster and Container Registry
 on: workflow_dispatch
-
-env:
-  PUBLIC_KEY: ${{ secrets.AZURE_PUB_KEY }}
-
 
 jobs:
   create-aks:
     runs-on: ubuntu-22.04
+    env:
+    
+      LOCATION: francecentral
+      RESOURCE_GROUP_NAME: BorisDundakov_RG_FinalProject
+      VM_NAME: Ubuntu-VM
+      VM_IMAGE: UbuntuLTS
+      VM_SIZE: Standard_DS2_v2
+      VM_USER: borisdundakov
+      PUBLIC_KEY: ${{ secrets.AZURE_PUB_KEY }}
+      AKS_NAME: VM_Cluster
+      CONTAINER_REG_NAME: borisdundakovwebapp
+
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v3
@@ -18,12 +26,23 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }} 
 
       - name: Execute bash cluster-creation script
+        run: |              
+                az aks create \
+                  -g $RESOURCE_GROUP_NAME \
+                  -n $AKS_NAME \
+                  --ssh-key-value $PUBLIC_KEY \
+                  -l $LOCATION \
+                  --node-count 1 \
+                  --node-vm-size $VM_SIZE \
+                  --network-plugin azure \
+      
+      - name: Create container-registry
         run: |
-              pwd
-              ls -a
-              chmod +x azure-scripts/cluster-creation.sh 
-              ./azure-scripts/cluster-creation.sh PUBLIC_KEY
-        
-  # deploy-pods:
-  #   runs-on: ubuntu-22.04
-    
+                az acr create \
+                --resource-group $RESOURCE_GROUP_NAME \
+                --name $CONTAINER_REG_NAME \
+                --sku Basic
+
+    # - name: apply deployment
+    #    run: |
+    #            kubectl apply deployment/test-depl.yml  
