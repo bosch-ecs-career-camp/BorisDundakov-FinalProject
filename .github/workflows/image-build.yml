@@ -6,9 +6,9 @@ on: workflow_dispatch
 jobs:
   build-image:
     runs-on: self-hosted
-    container: 
-     image: docker
-     options: --user root
+#     container: 
+#      image: docker
+#      options: --user root
     env:
         RESOURCE_GROUP_NAME: BorisDundakov_RG_FinalProject
         CONTAINER_REG_NAME: webapp
@@ -20,6 +20,7 @@ jobs:
       
       - name: Build docker image
         run: |
+              sudo usermod -aG docker $USER
               docker build  --build-arg PYTHON_VERSION=3.8 \
               --build-arg WAVE_VERSION=0.25.2 \
               --build-arg PYTHON_MODULE="wave-heroku/ai_app/app.py" \
