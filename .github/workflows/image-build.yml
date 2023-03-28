@@ -5,7 +5,7 @@ on: workflow_dispatch
 
 jobs:
   build-image:
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     container: 
      image: docker
     env:
@@ -24,7 +24,7 @@ jobs:
               --build-arg PYTHON_MODULE="wave-heroku/ai_app/app.py" \
               -t $IMAGE_NAME ./wave-heroku       
 
-      - name: 'Az CLI login'
+      - name: Az CLI login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }} 
