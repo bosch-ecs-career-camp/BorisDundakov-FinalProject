@@ -34,6 +34,8 @@ spec:
         
         
         - name: sonarqube-container # this is where the analysis made by sonaqrube will be viewed
+        # TODO --> Add secrets to log into the container and automize repository analysis
+        # Set up Automated Static Code Analyze with CI/CD pipeline
           image: sonarqube
           ports:
             - containerPort: 9000
@@ -45,7 +47,7 @@ kind: Service
 metadata:
   name: port-balancer
 spec:
-  type: LoadBalancer
+  type: LoadBalancer # Exposes public IP of the application
   ports:
     - name: h2o-wave-port
       port: 10101
