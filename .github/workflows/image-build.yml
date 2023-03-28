@@ -1,0 +1,76 @@
+#Configure The CI/CD Pipeline to automate the build/validate/deploy h2o-wave docker image steps.
+
+name: h2o wave image build
+on: workflow_dispatch
+
+jobs:
+  build-image:
+    runs-on: ubuntu-22.04
+    env:
+        RESOURCE_GROUP_NAME: BorisDundakov_RG_FinalProject
+        CONTAINER_REG_NAME: webapp
+        IMAGE_NAME: h2o-wave-app
+
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v3
+      
+      - name: Build docker image
+        run: |
+              docker build  --build-arg PYTHON_VERSION=3.8 \
+              --build-arg WAVE_VERSION=0.25.2 \
+              --build-arg PYTHON_MODULE="wave-heroku/ai_app/app.py" \
+              -t $IMAGE_NAME ./wave-heroku       
+
+      - name: 'Az CLI login'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }} 
+
+      - name: Create container registry
+        run: |
+              az acr create --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REG_NAME --sku Basic
+
+      - name: Log in to container registry
+        run: |
+              az acr login --name $CONTAINER_REG_NAME
+      
+      - name: Tag container image
+        run: |
+              docker tag $IMAGE_NAME $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME:v1
+
+      - name: Push the container image
+        run: |
+              docker push $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME:v1
+
+
+
+      #- name: Install docker
+      #  run: |
+      #        apt-get -y install docker
+
+      #- name: Build image
+      #  run: |
+      #         az build docker image
+
+
+      #- name: Push docker image to Azure container registry
+      #  run: |
+      #         az docker image push
+
+
+
+
+
+
+
+
+
+
+
+
+#docker run -detached -port local_port:container_port image_tag
+# container port should always be 80!!??
+# run 'docker build --build-arg PYTHON_VERSION=3.8 --build-arg WAVE_VERSION=0.25.2 --build-arg PYTHON_MODULE="ai_app/app.py" -t wave-heroku:0.1.0 . '
+# and then run 'docker run --rm --name wave-heroku -p 10101:8888 -e PORT=8888 wave-heroku:0.1.0'
+
