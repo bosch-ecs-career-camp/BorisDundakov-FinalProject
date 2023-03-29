@@ -62,34 +62,3 @@ jobs:
       # - name: Attach acr credentials #DOESN'T WORK FROM Here--> Only from Azure website UI!!!
       #   run: |
       #         az aks update -n $AKS_NAME -g $RESOURCE_GROUP_NAME --attach-acr $CONTAINER_REG_NAME
-
-
-      #- name: Install docker
-      #  run: |
-      #        apt-get -y install docker
-
-      #- name: Build image
-      #  run: |
-      #         az build docker image
-
-
-      #- name: Push docker image to Azure container registry
-      #  run: |
-      #         az docker image push
-
-
-
-
-
-
-
-
-
-
-
-
-#docker run -detached -port local_port:container_port image_tag
-# container port should always be 80!!??
-# run 'docker build --build-arg PYTHON_VERSION=3.8 --build-arg WAVE_VERSION=0.25.2 --build-arg PYTHON_MODULE="ai_app/app.py" -t wave-heroku:0.1.0 . '
-# and then run 'docker run --rm --name wave-heroku -p 10101:8888 -e PORT=8888 wave-heroku:0.1.0'
-
