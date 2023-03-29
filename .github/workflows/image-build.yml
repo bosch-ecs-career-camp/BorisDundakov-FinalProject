@@ -43,9 +43,9 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }} 
 
-      - name: Create container registry
-        run: |
-              az acr create --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REG_NAME --sku Basic
+      # - name: Create container registry
+      #   run: |
+      #         az acr create --resource-group $RESOURCE_GROUP_NAME --name $CONTAINER_REG_NAME --sku Basic
 
       - name: Log in to container registry
         run: |
