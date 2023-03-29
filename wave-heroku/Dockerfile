@@ -33,8 +33,7 @@ RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Install pacakges inside virtual environment
-RUN pip install psutil \
-    && pip install speedtest-cli
+RUN pip install psutil
 
 # Install Python dependencies
 WORKDIR /home/appuser/app
