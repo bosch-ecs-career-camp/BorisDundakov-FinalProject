@@ -3,7 +3,7 @@ on: workflow_dispatch
 
 jobs:
   create-aks:
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     env:
     
       LOCATION: francecentral

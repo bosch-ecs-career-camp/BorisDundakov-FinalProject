@@ -13,6 +13,8 @@ jobs:
         RESOURCE_GROUP_NAME: BorisDundakov_RG_FinalProject
         CONTAINER_REG_NAME: borisdundakovwebapp
         IMAGE_NAME: h2o-wave-app
+        AKS_NAME: VM_Cluster
+
 
     steps:
       - name: Checkout current repository
@@ -57,6 +59,9 @@ jobs:
         run: |
               docker push $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME:v1
 
+      # - name: Attach acr credentials #DOESN'T WORK FROM Here--> Only from Azure website UI!!!
+      #   run: |
+      #         az aks update -n $AKS_NAME -g $RESOURCE_GROUP_NAME --attach-acr $CONTAINER_REG_NAME
 
 
       #- name: Install docker
