@@ -22,9 +22,7 @@ spec:
     spec:
       containers:
         - name: h2o-wave-container
-          # $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME:v1
-          # borisdundakov/wave-heroku:0.1.1
-          image: borisdundakovwebapp.azurecr.io/h2o-wave-app:v2 # TOOD --> Update this with Azure Container Registry
+          image: borisdundakovwebapp.azurecr.io/h2o-wave-app:v3
           ports:
             - containerPort: 10101
           command:
