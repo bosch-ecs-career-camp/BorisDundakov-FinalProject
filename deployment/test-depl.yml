@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: h2o-wave-container
-          image: borisdundakovwebapp.azurecr.io/h2o-wave-app:v3
+          image: borisdundakovwebapp.azurecr.io/h2o-wave-app:v2
           ports:
             - containerPort: 10101
           command:
@@ -39,6 +39,16 @@ spec:
           image: sonarqube
           ports:
             - containerPort: 9000
+          
+      #     env:
+      #       - name: SONARQUBE_JDBC_USERNAME
+      #         value: your_db_username
+      #       - name: SONARQUBE_JDBC_PASSWORD
+      #         value: your_db_password
+      #       - name: SONARQUBE_JDBC_URL
+      #         value: jdbc:postgresql://your_db_host:5432/sonar
+      # imagePullSecrets:
+      #   - name: your_secret
 
 ---
 
