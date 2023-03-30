@@ -7,30 +7,30 @@ spec:
       - kubernetes
 
 
-# ---
-# # Persistent volume claim to remember Sonarqube setup
-# kind: PersistentVolumeClaim
-# apiVersion: v1
-# metadata:
-#   name: sonarqube-data
-# spec:
-#   accessModes:
-#     - ReadWriteOnce
-#   resources:
-#     requests:
-#       storage: 10Gi
+---
+# Persistent volume claim to remember Sonarqube setup
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: sonarqube-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
 
-# ---
-# kind: PersistentVolumeClaim
-# apiVersion: v1
-# metadata:
-#   name: sonarqube-extensions
-# spec:
-#   accessModes:
-#     - ReadWriteOnce
-#   resources:
-#     requests:
-#       storage: 1Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: sonarqube-extensions
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
 
 
 ---
@@ -67,27 +67,27 @@ spec:
           ports:
             - containerPort: 9000
           
-      #     # env:
-      #     #   - name: SONARQUBE_JDBC_URL
-      #     #     value: jdbc:h2:tcp://20.19.106.155:9092/sonar
-      #     #   - name: SONARQUBE_JDBC_USERNAME
-      #     #     value: username
-      #     #   - name: SONARQUBE_JDBC_PASSWORD
-      #     #     value: password
+          # env:
+          #   - name: SONARQUBE_JDBC_URL
+          #     value: jdbc:h2:tcp://20.19.106.155:9092/sonar
+          #   - name: SONARQUBE_JDBC_USERNAME
+          #     value: username
+          #   - name: SONARQUBE_JDBC_PASSWORD
+          #     value: password
           
-      #     volumeMounts:
-      #       - name: sonarqube-data
-      #         mountPath: /opt/sonarqube/data
-      #       - name: sonarqube-extensions
-      #         mountPath: /opt/sonarqube/extensions
+          volumeMounts:
+            - name: sonarqube-data
+              mountPath: /opt/sonarqube/data
+            - name: sonarqube-extensions
+              mountPath: /opt/sonarqube/extensions
       
-      # volumes:
-      #   - name: sonarqube-data
-      #     persistentVolumeClaim:
-      #       claimName: sonarqube-data
-      #   - name: sonarqube-extensions
-      #     persistentVolumeClaim:
-      #       claimName: sonarqube-extensions
+      volumes:
+        - name: sonarqube-data
+          persistentVolumeClaim:
+            claimName: sonarqube-data
+        - name: sonarqube-extensions
+          persistentVolumeClaim:
+            claimName: sonarqube-extensions
   
 ---
 
