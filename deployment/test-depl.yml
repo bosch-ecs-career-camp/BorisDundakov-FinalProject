@@ -6,6 +6,33 @@ spec:
     finalizers:
       - kubernetes
 
+
+# ---
+# # Persistent volume claim to remember Sonarqube setup
+# kind: PersistentVolumeClaim
+# apiVersion: v1
+# metadata:
+#   name: sonarqube-data
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 10Gi
+
+# ---
+# kind: PersistentVolumeClaim
+# apiVersion: v1
+# metadata:
+#   name: sonarqube-extensions
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 1Gi
+
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -40,16 +67,28 @@ spec:
           ports:
             - containerPort: 9000
           
-      #     env:
-      #       - name: SONARQUBE_JDBC_USERNAME
-      #         value: your_db_username
-      #       - name: SONARQUBE_JDBC_PASSWORD
-      #         value: your_db_password
-      #       - name: SONARQUBE_JDBC_URL
-      #         value: jdbc:postgresql://your_db_host:5432/sonar
-      # imagePullSecrets:
-      #   - name: your_secret
-
+      #     # env:
+      #     #   - name: SONARQUBE_JDBC_URL
+      #     #     value: jdbc:h2:tcp://20.19.106.155:9092/sonar
+      #     #   - name: SONARQUBE_JDBC_USERNAME
+      #     #     value: username
+      #     #   - name: SONARQUBE_JDBC_PASSWORD
+      #     #     value: password
+          
+      #     volumeMounts:
+      #       - name: sonarqube-data
+      #         mountPath: /opt/sonarqube/data
+      #       - name: sonarqube-extensions
+      #         mountPath: /opt/sonarqube/extensions
+      
+      # volumes:
+      #   - name: sonarqube-data
+      #     persistentVolumeClaim:
+      #       claimName: sonarqube-data
+      #   - name: sonarqube-extensions
+      #     persistentVolumeClaim:
+      #       claimName: sonarqube-extensions
+  
 ---
 
 apiVersion: v1
@@ -67,3 +106,26 @@ spec:
       targetPort: 9000
   selector:
     app: my-app
+
+
+# ---
+
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: sonarqube-scanner
+# spec:
+#   containers:
+#   - name: sonar-scanner
+#     image: sonarsource/sonar-scanner-cli:latest
+#     command:
+#     - "/bin/sh"
+#     - "-c"
+#     - "sonar-scanner \
+#       -Dsonar.projectKey=wave-heroku \
+#       -Dsonar.sources=. \
+#       -Dsonar.host.url=http://sonarqube:9000 \ 
+#       -Dsonar.login=my-sonarqube-token"
+
+
+#   restartPolicy: Never
