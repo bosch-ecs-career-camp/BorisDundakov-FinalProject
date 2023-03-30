@@ -1,4 +1,5 @@
 # BorisDundakov-FinalProject
+
 BOSCH-ESC-CAREER-CAMP final project
 
 1. vm-setup.yml (Creating the VM inside Azure)
