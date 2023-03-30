@@ -8,12 +8,48 @@ spec:
 
 
 ---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sonarqube-data-pv
+  labels:
+    type: local
+spec:
+  storageClassName: sonaqrube-data
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+
+
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sonarqube-extentions-pv
+  labels:
+    type: local
+spec:
+  storageClassName: sonarqube-extentions
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+
+
+---
 # Persistent volume claim to remember Sonarqube setup
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: sonarqube-data
+  name: sonarqube-data-pvc
 spec:
+  storageClassName: sonaqrube-data
   accessModes:
     - ReadWriteOnce
   resources:
@@ -24,8 +60,9 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: sonarqube-extensions
+  name: sonarqube-extentions-pvc
 spec:
+  storageClassName: sonarqube-extentions
   accessModes:
     - ReadWriteOnce
   resources:
@@ -46,7 +83,7 @@ spec:
     metadata:
       labels:
         app: my-app
-    spec:
+    spec: 
       containers:
         - name: h2o-wave-container
           image: borisdundakovwebapp.azurecr.io/h2o-wave-app:v2
@@ -58,6 +95,7 @@ spec:
             - |
               cd ai_app/
               wave run app.py
+
         
         
         - name: sonarqube-container # this is where the analysis made by sonaqrube will be viewed
@@ -75,19 +113,20 @@ spec:
           #   - name: SONARQUBE_JDBC_PASSWORD
           #     value: password
           
-          volumeMounts:
-            - name: sonarqube-data
-              mountPath: /opt/sonarqube/data
-            - name: sonarqube-extensions
-              mountPath: /opt/sonarqube/extensions
+          # Here is where the issue lies!
+          # volumeMounts:
+          #   - name: sonarqube-data
+          #     mountPath: /opt/sonarqube/data
+          #   - name: sonarqube-extentions
+          #     mountPath: /opt/sonarqube/extentions
       
       volumes:
         - name: sonarqube-data
           persistentVolumeClaim:
-            claimName: sonarqube-data
-        - name: sonarqube-extensions
+            claimName: sonarqube-data-pvc
+        - name: sonarqube-extentions
           persistentVolumeClaim:
-            claimName: sonarqube-extensions
+            claimName: sonarqube-extentions-pvc
   
 ---
 
@@ -122,10 +161,10 @@ spec:
 #     - "/bin/sh"
 #     - "-c"
 #     - "sonar-scanner \
-#       -Dsonar.projectKey=wave-heroku \
+#       -Dsonar.projectKey=BorisDundakov-FinalProject \
 #       -Dsonar.sources=. \
 #       -Dsonar.host.url=http://sonarqube:9000 \ 
-#       -Dsonar.login=my-sonarqube-token"
+#       -Dsonar.login=sqp_7e37065248c5e40ef0098209598895d24166b4ff"
 
 
 #   restartPolicy: Never
