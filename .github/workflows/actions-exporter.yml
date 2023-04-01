@@ -1,0 +1,29 @@
+name: Actions-exporter job
+
+on:
+  push:
+  workflow_dispatch:
+    
+jobs:
+  build:
+    name: Run github-actions-exporter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v3
+        with:
+          repository: Spendesk/github-actions-exporter
+          path: github-actions-exporter
+      
+      - name: Build GitHub Actions Exporter Docker image
+        run: |
+          cd github-actions-exporter
+          docker build -t spendeskplatform/github-actions-exporter:latest .
+      - name: Run GitHub Actions Exporter
+        run: |
+          docker run -d \
+            --name github-actions-exporter-unique \
+            -p 9999:9999 \
+            -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+            -e GITHUB_REPOSITORY=${{ github.repository }} \
+            spendeskplatform/github-actions-exporter:latest
