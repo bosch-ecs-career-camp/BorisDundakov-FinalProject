@@ -24,7 +24,7 @@ jobs:
       - name: Run GitHub Actions Exporter
         run: |
           docker run -d \
-            --name github-actions-exporter-unique \
+            --name github-actions-exporter-unique-1 \
             -p 9999:9999 \
             -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             -e GITHUB_REPOSITORY=${{ github.repository }} \
