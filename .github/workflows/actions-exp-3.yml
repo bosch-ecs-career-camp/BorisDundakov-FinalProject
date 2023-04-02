@@ -10,7 +10,7 @@ jobs:
   github-actions-exporter:
     runs-on: ubuntu-latest
     container:
-      image: docker.io/prom/github-actions-exporter:v0.8.0
+      image: quay.io/prometheus-community/github-exporter:v0.17.0
     steps:
       - name: Checkout
         uses: actions/checkout@v2
