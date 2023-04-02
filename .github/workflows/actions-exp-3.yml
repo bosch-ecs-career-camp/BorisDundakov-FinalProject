@@ -1,17 +1,14 @@
 name: GitHub Actions Exporter
 
 on:
-  workflow_run:
-    workflows: ["*"]
-    types:
-      - completed
+  workflow_dispatch:
 
 jobs:
   github-actions-exporter:
-    runs-on: ubuntu-latest
-    container:
-       image: spendeskplatform/github-actions-exporter:v1.8.1
-      #image: quay.io/prometheus-community/github-exporter:v0.17.0
+    runs-on: self-hosted
+    
+    #image: quay.io/prometheus-community/github-exporter:v0.17.0
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -25,7 +22,5 @@ jobs:
             --rm \
             -e DATA_SOURCE="$DATA_SOURCE" \
             -e GITHUB_TOKEN="$GITHUB_TOKEN" \
-            -p 9111:9111 \
+            -p 9999:9999 \
             spendeskplatform/github-actions-exporter:v1.8.1
-    
-    #docker.io/prom/github-actions-exporter:v0.8.0

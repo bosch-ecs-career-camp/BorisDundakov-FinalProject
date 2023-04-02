@@ -1,7 +1,7 @@
 name: Actions-exporter job
 
 on:
-  push:
+  #push:
   workflow_dispatch:
     
 jobs:
@@ -19,7 +19,7 @@ jobs:
       - name: Build GitHub Actions Exporter Docker image
         run: |
           cd github-actions-exporter
-          docker build -t spendeskplatform/github-actions-exporter:latest .
+          docker build -t spendeskplatform/github-actions-exporter:v1.8.1 .
       
       
       #TODO: Delete prevous containers to avoid name duplication
@@ -31,17 +31,3 @@ jobs:
             -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             -e GITHUB_REPOSITORY=${{ github.event.repository.full_name }} \
             spendeskplatform/github-actions-exporter:v1.8.1
-    
-      - name: Pointless echo
-        run: |
-          echo ${{ github.event.repository.full_name }}
-      
-      - name: Expose workflow run status
-        run: |
-            echo "github_workflow_run_status $(echo ${{ job.status }} | tr '[:upper:]' '[:lower:]') $(date +%s)" | \
-              docker run --rm -i --network=host --entrypoint=/bin/sh -e "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" \
-              spendeskplatform/github-actions-exporter:latest -c 'echo "$0" | curl --data-binary @- http://localhost:9999/metrics/job/github_workflow_run_status/instance/$GITHUB_REPOSITORY' 
-
-
-#-e GITHUB_REPOSITORY=${{ github.repository }} \
-            
