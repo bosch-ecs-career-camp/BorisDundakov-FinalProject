@@ -26,7 +26,7 @@ jobs:
       - name: Run GitHub Actions Exporter
         run: |
           docker run -d \
-            --name github-actions-exporter-unique-24 \
+            --name github-actions-exporter-unique-27 \
             -p 9999:9999 \
             -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             -e GITHUB_REPOSITORY=${{ github.event.repository.full_name }} \
@@ -40,9 +40,7 @@ jobs:
         run: |
             echo "github_workflow_run_status $(echo ${{ job.status }} | tr '[:upper:]' '[:lower:]') $(date +%s)" | \
               docker run --rm -i --network=host --entrypoint=/bin/sh -e "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" \
-              spendeskplatform/github-actions-exporter:latest -c 'echo "$0" | curl --data-binary @- http://localhost:9999/metrics/job/github_workflow_run_status/instance/$GITHUB_REPOSITORY'
-
-
+              spendeskplatform/github-actions-exporter:latest -c 'echo "$0" | curl --data-binary @- http://localhost:9999/metrics/job/github_workflow_run_status/instance/$GITHUB_REPOSITORY' 
 
 
 #-e GITHUB_REPOSITORY=${{ github.repository }} \
