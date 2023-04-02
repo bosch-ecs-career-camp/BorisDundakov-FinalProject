@@ -26,12 +26,15 @@ jobs:
       - name: Run GitHub Actions Exporter
         run: |
           docker run -d \
-            --name github-actions-exporter-unique-7 \
+            --name github-actions-exporter-unique-8 \
             -p 9999:9999 \
             -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             -e GITHUB_REPOSITORY=${{ github.event.repository.full_name }} \
             spendeskplatform/github-actions-exporter:latest
-
+    
+      - name: Pointless echo
+        run: |
+          echo ${{ github.event.repository.full_name }}
 
 
 
