@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: erikkn/github-actions-exporter:4
-      options: --net host
+      #options: --net host
     steps:
       - name: Setup environment
         uses: actions/checkout@v2
