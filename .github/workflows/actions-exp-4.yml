@@ -8,7 +8,7 @@ jobs:
   github-actions-exporter:
     runs-on: ubuntu-latest
     container:
-      image: prom/github-actions-exporter:v0.9.0
+      image: erikkn/github-actions-exporter:4
       options: --net host
     steps:
       - name: Setup environment
@@ -17,4 +17,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DATA_SOURCE: '{"owners": ["bosch-ecs-career-camp"], "repositories": ["BorisDundakov-FinalProject"]}'
       - name: Run GitHub Actions Exporter
-        run: docker run -d --name github-actions-exporter -e GITHUB_TOKEN=$GITHUB_TOKEN -e DATA_SOURCE=$DATA_SOURCE -p 9111:9111 prom/github-actions-exporter:v0.9.0
+        run: docker run -d --name github-actions-exporter -e GITHUB_TOKEN=$GITHUB_TOKEN -e DATA_SOURCE=$DATA_SOURCE -p 9999:9999 erikkn/github-actions-exporter:4
