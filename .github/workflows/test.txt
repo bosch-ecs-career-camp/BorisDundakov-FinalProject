@@ -1,0 +1,15 @@
+ docker run -d \
+            --name github-actions-exporter-unique-test2 \
+            -p 9999:9999 \
+            -e GITHUB_TOKEN=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 \
+            -e GITHUB_REPOSITORY=bosch-ecs-career-camp/BorisDundakov-FinalProject \
+            -e EXPORT_FIELDS=repo,id,node_id,head_branch,head_sha,run_number,workflow_id,workflow,event,status
+
+
+
+docker run -d             --name github-actions-exporter-unique-test             -p 9999:9999             -e GITHUB_TOKEN=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             -e GITHUB_REPOSITORY=bosch-ecs-career-camp/BorisDundakov-FinalProject             -e EXPORT_FIELDS=repo,id,node_id,head_branch,head_sha,run_number,workflow_id,workflow,event,status             spendeskplatform/github-actions-exporter:v1.8.1
+
+
+
+
+docker run -d             --name github-actions-exporter-unique-test             -p 9999:9999             -e GITHUB_TOKEN=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             -e GITHUB_REPOSITORY=bosch-ecs-career-camp/BorisDundakov-FinalProject             -e EXPORT_FIELDS=repo             spendeskplatform/github-actions-exporter:v1.8.1
