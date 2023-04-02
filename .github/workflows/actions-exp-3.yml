@@ -10,7 +10,8 @@ jobs:
   github-actions-exporter:
     runs-on: ubuntu-latest
     container:
-      image: quay.io/prometheus-community/github-exporter:v0.17.0
+       image: spendeskplatform/github-actions-exporter:v1.8.1
+      #image: quay.io/prometheus-community/github-exporter:v0.17.0
     steps:
       - name: Checkout
         uses: actions/checkout@v2
