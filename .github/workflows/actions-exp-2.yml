@@ -20,7 +20,7 @@ jobs:
       
     steps:
       - name: Wait for the server to start
-        run: sleep 5
+        run: sleep 5d
       
       # - name: Check the metrics endpoint
       #   run: curl -s localhost:9999/metrics
