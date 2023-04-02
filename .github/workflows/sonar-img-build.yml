@@ -20,7 +20,7 @@ jobs:
       - name: Build docker image
         run: |
               sudo usermod -aG docker $USER
-              docker build  -t $IMAGE_NAME ./sonarube       
+              docker build  -t $IMAGE_NAME ./sonarqube       
 
       #CLI Login workaround
       - name: Install Azure cli
