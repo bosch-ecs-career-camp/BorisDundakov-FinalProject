@@ -101,7 +101,7 @@ spec:
         - name: sonarqube-container # this is where the analysis made by sonaqrube will be viewed
         # TODO --> Add secrets to log into the container and automize repository analysis
         # Set up Automated Static Code Analyze with CI/CD pipeline
-          image: sonarqube
+          image: borisdundakovwebapp.azurecr.io/sonarqube-with-prometheus:v3
           ports:
             - containerPort: 9000
           
