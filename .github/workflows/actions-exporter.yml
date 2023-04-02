@@ -27,5 +27,11 @@ jobs:
             --name github-actions-exporter-unique-3 \
             -p 9999:9999 \
             -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
-            -e GITHUB_REPOSITORY=${{ github.repository }} \
+            -e GITHUB_REPOSITORY=${{ github.event.repository.full_name }} \
             spendeskplatform/github-actions-exporter:latest
+
+
+
+
+#-e GITHUB_REPOSITORY=${{ github.repository }} \
+            
