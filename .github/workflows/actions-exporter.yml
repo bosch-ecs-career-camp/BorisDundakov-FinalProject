@@ -15,6 +15,9 @@ jobs:
         with:
           repository: Spendesk/github-actions-exporter
           path: github-actions-exporter
+        env:
+          DATA_SOURCE: '{"owners": ["bosch-ecs-career-camp"], "repositories": ["BorisDundakov-FinalProject"]}'
+
       
       - name: Build GitHub Actions Exporter Docker image
         run: |
@@ -30,4 +33,5 @@ jobs:
             -p 9999:9999 \
             -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             -e GITHUB_REPOSITORY=${{ github.event.repository.full_name }} \
+            -e DATA_SOURCE="$DATA_SOURCE" \
             spendeskplatform/github-actions-exporter:v1.8.1
