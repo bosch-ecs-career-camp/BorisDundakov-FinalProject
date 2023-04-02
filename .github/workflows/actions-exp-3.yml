@@ -1,0 +1,28 @@
+name: GitHub Actions Exporter
+
+on:
+  workflow_run:
+    workflows: ["*"]
+    types:
+      - completed
+
+jobs:
+  github-actions-exporter:
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/prom/github-actions-exporter:v0.8.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DATA_SOURCE: '{"owners": ["bosch-ecs-career-camp"], "repositories": ["BorisDundakov-FinalProject"]}'
+
+      - name: Run exporter
+        run: |
+          docker run \
+            --rm \
+            -e DATA_SOURCE="$DATA_SOURCE" \
+            -e GITHUB_TOKEN="$GITHUB_TOKEN" \
+            -p 9111:9111 \
+            docker.io/prom/github-actions-exporter:v0.8.0
