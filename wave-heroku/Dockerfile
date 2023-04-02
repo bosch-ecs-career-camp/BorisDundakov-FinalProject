@@ -55,5 +55,3 @@ ENTRYPOINT [ "./docker-entrypoint.sh" ]
 # container port should always be 80!!??
 # run 'docker build --build-arg PYTHON_VERSION=3.8 --build-arg WAVE_VERSION=0.25.2 --build-arg PYTHON_MODULE="ai_app/app.py" -t wave-heroku:0.1.0 . '
 # and then run 'docker run --rm --name wave-heroku -p 10101:8888 -e PORT=8888 wave-heroku:0.1.0'
-
-
