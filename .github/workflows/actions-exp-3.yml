@@ -26,4 +26,6 @@ jobs:
             -e DATA_SOURCE="$DATA_SOURCE" \
             -e GITHUB_TOKEN="$GITHUB_TOKEN" \
             -p 9111:9111 \
-            docker.io/prom/github-actions-exporter:v0.8.0
+            spendeskplatform/github-actions-exporter:v1.8.1
+    
+    #docker.io/prom/github-actions-exporter:v0.8.0
