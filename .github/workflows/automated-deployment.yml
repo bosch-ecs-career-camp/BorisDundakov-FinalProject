@@ -1,0 +1,24 @@
+name: Automatic deployment
+on: 
+  workflow_run:
+    workflows:
+      - "Sonarqube and H2o wave images build and push"
+    types:
+      - "completed"
+
+jobs:
+  run-deployment:
+     runs-on: self-hosted
+
+     steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v3
+      
+      - name: run deployment yml file
+        run: |
+              kubectl apply -f deployment/aks-deployment.yml
+        
+      
+      - name: get public IP 
+        run: |
+              kubectl get services
