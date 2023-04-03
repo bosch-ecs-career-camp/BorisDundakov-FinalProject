@@ -9,7 +9,7 @@ jobs:
     env:
         RESOURCE_GROUP_NAME: BorisDundakov_RG_FinalProject
         CONTAINER_REG_NAME: borisdundakovwebapp
-        IMAGE_NAME: sonarqube-with-prometheus_prod:v.1.0.0_prod:v.1.0.0
+        IMAGE_NAME: sonarqube-with-prometheus_prod:v.1.0.0
         AKS_NAME: VM_Cluster
 
 
