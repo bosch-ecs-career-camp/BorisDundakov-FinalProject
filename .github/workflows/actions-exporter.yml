@@ -1,7 +1,7 @@
 name: Actions-exporter job
 
 on:
-  push:
+  #push:
   workflow_dispatch:
     
 jobs:
