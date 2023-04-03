@@ -1,8 +1,8 @@
 name: Automatic deployment production
 on:
   workflow_dispatch:
-  # workflow_run:
-  #   workflows: [" Sonarqube and H2o images build prod"]
+  workflow_run:
+    workflows: [" Sonarqube and H2o images build prod"]
     types:
       - "completed"
 

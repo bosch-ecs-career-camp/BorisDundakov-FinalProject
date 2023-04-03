@@ -1,4 +1,4 @@
-name: Automatic deployment
+name: Automatic deployment test
 on: 
   workflow_run:
     workflows: [" Sonarqube and H2o images build test"]
