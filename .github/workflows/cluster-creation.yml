@@ -42,7 +42,3 @@ jobs:
                 --resource-group $RESOURCE_GROUP_NAME \
                 --name $CONTAINER_REG_NAME \
                 --sku Basic
-
-    # - name: apply deployment
-    #    run: |
-    #            kubectl apply deployment/test-depl.yml  
