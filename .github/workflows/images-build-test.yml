@@ -1,6 +1,6 @@
 #Configure The CI/CD Pipeline to automate the build/validate/deploy h2o-wave docker image steps.
 
-name: Sonarqube and H2o images build prod
+name: Sonarqube and H2o images build
 on: workflow_dispatch
 
 jobs:
