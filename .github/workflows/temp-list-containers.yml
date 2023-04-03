@@ -1,4 +1,4 @@
-name: Run deployment
+name: Temp containers
 on: workflow_dispatch
 
 jobs:
