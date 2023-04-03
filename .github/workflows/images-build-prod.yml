@@ -44,7 +44,7 @@ jobs:
       
       - name: Tag container image
         run: |
-              docker tag $IMAGE_NAME $CONTAINER_REG_NAME.azurecr.io/sonarqube-with-prometheus_prod:v.1.0.0"
+              docker tag $IMAGE_NAME $CONTAINER_REG_NAME.azurecr.io/sonarqube-with-prometheus_prod:v.1.0.0
       - name: Push the container image
         run: |
               docker push $CONTAINER_REG_NAME.azurecr.io/sonarqube-with-prometheus_prod:v.1.0.0
