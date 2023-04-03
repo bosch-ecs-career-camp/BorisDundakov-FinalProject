@@ -16,7 +16,7 @@ jobs:
       
       - name: run deployment yml file
         run: |
-              kubectl apply -f deployment/aks-deployment.yml
+              kubectl apply -f deployment/aks-deployment-prod.yml
         
       
       - name: get public IP 
