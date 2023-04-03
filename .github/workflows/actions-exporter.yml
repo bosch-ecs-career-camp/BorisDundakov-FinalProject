@@ -15,14 +15,16 @@ jobs:
         with:
           repository: Spendesk/github-actions-exporter
           path: github-actions-exporter
-      
+
+      - name: Remove all non-running containers
+        run: |
+              docker container prune -y              
+
       - name: Build GitHub Actions Exporter Docker image
         run: |
           cd github-actions-exporter
           docker build -t spendeskplatform/github-actions-exporter:latest .
-      
-      
-      #TODO: Delete prevous containers to avoid name duplication
+    
       - name: Run GitHub Actions Exporter
         run: |
           docker run -d \

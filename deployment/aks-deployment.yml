@@ -86,7 +86,8 @@ spec:
     spec: 
       containers:
         - name: h2o-wave-container
-          image: borisdundakovwebapp.azurecr.io/h2o-wave-app:v2
+          # change this to 'borisdundakovwebapp.azurecr.io/h2o-wave-app:v2' if undesired result
+          image: borisdundakovwebapp.azurecr.io/h2o-wave-app:v3
           ports:
             - containerPort: 10101
           command:
