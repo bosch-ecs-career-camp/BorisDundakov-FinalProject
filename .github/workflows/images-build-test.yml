@@ -46,11 +46,14 @@ jobs:
       
       - name: Tag container image
         run: |
-              docker tag $IMAGE_NAME $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME:v1
+
+              docker tag $IMAGE_NAME $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME
+
 
       - name: Push the container image
         run: |
-              docker push $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME:v1
+              docker push $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME
+
 
       # - name: Attach acr credentials #DOESN'T WORK FROM Here--> Only from Azure website UI!!!
       #   run: |
@@ -98,6 +101,7 @@ jobs:
       
       - name: Tag container image
         run: |
+        
               docker tag $IMAGE_NAME $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME:v3
 
       - name: Push the container image
