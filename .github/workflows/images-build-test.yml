@@ -9,7 +9,7 @@ jobs:
     env:
         RESOURCE_GROUP_NAME: BorisDundakov_RG_FinalProject
         CONTAINER_REG_NAME: borisdundakovwebapp
-        IMAGE_NAME: sonarqube-with-prometheus
+        IMAGE_NAME: sonarqube-with-prometheus_test:v.1.0.0
         AKS_NAME: VM_Cluster
 
 
@@ -44,10 +44,10 @@ jobs:
       
       - name: Tag container image
         run: |
-              docker tag $IMAGE_NAME $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME_test:v.1.0.0
+              docker tag $IMAGE_NAME $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME
       - name: Push the container image
         run: |
-              docker push $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME_test:v.1.0.0
+              docker push $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME
       # - name: Attach acr credentials #DOESN'T WORK FROM Here--> Only from Azure website UI!!!
       #   run: |
       #         az aks update -n $AKS_NAME -g $RESOURCE_GROUP_NAME --attach-acr $CONTAINER_REG_NAME
@@ -58,7 +58,7 @@ jobs:
     env:
         RESOURCE_GROUP_NAME: BorisDundakov_RG_FinalProject
         CONTAINER_REG_NAME: borisdundakovwebapp
-        IMAGE_NAME: h2o-wave-app
+        IMAGE_NAME: h2o-wave-app_test:v.1.0.3
         AKS_NAME: VM_Cluster
 
 
@@ -92,7 +92,7 @@ jobs:
       
       - name: Tag container image
         run: |
-              docker tag $IMAGE_NAME $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME_test:v.1.0.3
+              docker tag $IMAGE_NAME $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME
       - name: Push the container image
         run: |
-              docker push $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME_test:v.1.0.3
+              docker push $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME
