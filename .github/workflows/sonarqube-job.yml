@@ -1,6 +1,6 @@
 #Sonarqube pipeline
 
-name: Build
+name: Sonarqube analysis
 
 on:
   #TODO: Make it on push only!!
