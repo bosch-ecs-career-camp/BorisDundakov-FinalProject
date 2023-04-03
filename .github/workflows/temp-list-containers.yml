@@ -13,4 +13,7 @@ jobs:
      - name: List running docker containers
        run: |
               docker ps 
-  
+
+     - name: Remove all non-running containers
+       run: |
+              docker container prune

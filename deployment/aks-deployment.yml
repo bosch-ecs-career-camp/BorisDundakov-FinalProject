@@ -99,19 +99,9 @@ spec:
         
         
         - name: sonarqube-container # this is where the analysis made by sonaqrube will be viewed
-        # TODO --> Add secrets to log into the container and automize repository analysis
-        # Set up Automated Static Code Analyze with CI/CD pipeline
           image: borisdundakovwebapp.azurecr.io/sonarqube-with-prometheus:v1
           ports:
             - containerPort: 9000
-          
-          # env:
-          #   - name: SONARQUBE_JDBC_URL
-          #     value: jdbc:h2:tcp://20.19.106.155:9092/sonar
-          #   - name: SONARQUBE_JDBC_USERNAME
-          #     value: username
-          #   - name: SONARQUBE_JDBC_PASSWORD
-          #     value: password
           
           # Here is where the issue lies!
           # volumeMounts:
@@ -145,26 +135,3 @@ spec:
       targetPort: 9000
   selector:
     app: my-app
-
-
-# ---
-
-# apiVersion: v1
-# kind: Pod
-# metadata:
-#   name: sonarqube-scanner
-# spec:
-#   containers:
-#   - name: sonar-scanner
-#     image: sonarsource/sonar-scanner-cli:latest
-#     command:
-#     - "/bin/sh"
-#     - "-c"
-#     - "sonar-scanner \
-#       -Dsonar.projectKey=BorisDundakov-FinalProject \
-#       -Dsonar.sources=. \
-#       -Dsonar.host.url=http://sonarqube:9000 \ 
-#       -Dsonar.login=sqp_7e37065248c5e40ef0098209598895d24166b4ff"
-
-
-#   restartPolicy: Never
