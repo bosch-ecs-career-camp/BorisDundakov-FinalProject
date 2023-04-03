@@ -1,7 +1,7 @@
 name: Automatic deployment
 on: 
   workflow_run:
-    workflows: [" Sonarqube and H2o images build"]
+    workflows: [" Sonarqube and H2o images build test"]
     types:
       - "completed"
 
