@@ -23,7 +23,7 @@ spec:
       containers:
         - name: h2o-wave-container
           # change this to 'borisdundakovwebapp.azurecr.io/h2o-wave-app:v3' if undesired result
-          image: borisdundakovwebapp.azurecr.io/h2o-wave-app_test:v.1.0.3
+          image: borisdundakovwebapp.azurecr.io/h2o-wave-app_prod:v.1.0.3
           ports:
             - containerPort: 10101
           command:
@@ -34,7 +34,7 @@ spec:
               wave run app.py
       
         - name: sonarqube-container # this is where the analysis made by sonaqrube will be viewed
-          image: borisdundakovwebapp.azurecr.io/sonarqube-with-prometheus_test:v.1.0.0
+          image: borisdundakovwebapp.azurecr.io/sonarqube-with-prometheus_prod:v.1.0.0
           ports:
             - containerPort: 9000
   
