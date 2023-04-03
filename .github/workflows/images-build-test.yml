@@ -1,6 +1,6 @@
 #Configure The CI/CD Pipeline to automate the build/validate/deploy h2o-wave docker image steps.
 
-name: Sonarqube and H2o images build test
+name: Sonarqube and H2o images build
 on: workflow_dispatch
 
 jobs:
@@ -9,7 +9,7 @@ jobs:
     env:
         RESOURCE_GROUP_NAME: BorisDundakov_RG_FinalProject
         CONTAINER_REG_NAME: borisdundakovwebapp
-        IMAGE_NAME: sonarqube-with-prometheus_test:v.1.0.0
+        IMAGE_NAME: sonarqube-with-prometheus
         AKS_NAME: VM_Cluster
 
 
@@ -21,6 +21,7 @@ jobs:
         run: |
               sudo usermod -aG docker $USER
               docker build  -t $IMAGE_NAME ./sonarqube       
+
       - name: Install Azure cli
         run: |
           sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupg
@@ -29,6 +30,7 @@ jobs:
           echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
           sudo apt-get update
           sudo apt-get install azure-cli
+
       - name: Az CLI login
         uses: azure/login@v1
         with:
@@ -44,12 +46,14 @@ jobs:
       
       - name: Tag container image
         run: |
+
               docker tag $IMAGE_NAME $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME
 
 
       - name: Push the container image
         run: |
               docker push $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME
+
 
       # - name: Attach acr credentials #DOESN'T WORK FROM Here--> Only from Azure website UI!!!
       #   run: |
@@ -61,7 +65,7 @@ jobs:
     env:
         RESOURCE_GROUP_NAME: BorisDundakov_RG_FinalProject
         CONTAINER_REG_NAME: borisdundakovwebapp
-        IMAGE_NAME: h2o-wave-app_test:v.1.0.3
+        IMAGE_NAME: h2o-wave-app
         AKS_NAME: VM_Cluster
 
 
@@ -76,6 +80,7 @@ jobs:
               --build-arg WAVE_VERSION=0.25.2 \
               --build-arg PYTHON_MODULE="wave-heroku/ai_app/app.py" \
               -t $IMAGE_NAME ./wave-heroku       
+
       - name: Install Azure cli
         run: |
           sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupg
@@ -84,6 +89,7 @@ jobs:
           echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
           sudo apt-get update
           sudo apt-get install azure-cli
+
       - name: Az CLI login
         uses: azure/login@v1
         with:
@@ -95,9 +101,9 @@ jobs:
       
       - name: Tag container image
         run: |
-              docker tag $IMAGE_NAME $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME
-
+        
+              docker tag $IMAGE_NAME $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME:v3
 
       - name: Push the container image
         run: |
-              docker push $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME
+              docker push $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME:v3
