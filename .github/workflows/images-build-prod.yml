@@ -44,10 +44,10 @@ jobs:
       
       - name: Tag container image
         run: |
-              docker tag $IMAGE_NAME $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME_prod:v.1.0.0
+              docker tag $IMAGE_NAME $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME"_prod:v.1.0.0"
       - name: Push the container image
         run: |
-              docker push $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME_prod:v.1.0.0
+              docker push $CONTAINER_REG_NAME.azurecr.io/$IMAGE_NAME"_prod:v.1.0.0"
       # - name: Attach acr credentials #DOESN'T WORK FROM Here--> Only from Azure website UI!!!
       #   run: |
       #         az aks update -n $AKS_NAME -g $RESOURCE_GROUP_NAME --attach-acr $CONTAINER_REG_NAME
