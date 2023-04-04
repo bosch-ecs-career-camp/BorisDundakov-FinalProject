@@ -4,7 +4,7 @@ name: Sonarqube analysis
 
 on:
   #TODO: Make it on push only!!
-  #push:
+  push:
   workflow_dispatch:
     
 jobs:
